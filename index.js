@@ -1,6 +1,7 @@
 import express from "express"
 import mongoose from "mongoose"
 import booksRouter from './src/routes/livros.js';
+import usersRouter from './src/routes/users.js'
 
 const app = express()
 const port = 8000;
@@ -22,7 +23,9 @@ app.get('/', (req, res)=>{
     res.send("Bem vindo à api de livros")
 })
 
-app.use('/livros', booksRouter);
+app.use('/books', booksRouter);
+
+app.use('/users', usersRouter);
 
 app.listen(port, ()=>{
     console.log(`Servidor rodando na porta ${port}`)
