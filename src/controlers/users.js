@@ -3,7 +3,7 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
 import randomString from 'crypto-random-string';
-const chaveSecreta = randomString({ length: 32, type: 'hex' });
+export const chaveSecreta = randomString({ length: 32, type: 'hex' });
 
 
 export const createUser = async(req, res) => {
@@ -35,6 +35,7 @@ export const login = async(req, res) =>{
         // optaria por usar serviço de gestão de segredos, como o AWS Secrets Manager 
         // localmente criaria uma chave, a mandaria para o gestor de segredos 
         const token = jwt.sign({ userId: user._id }, chaveSecreta, { expiresIn: '1h' });
+        console.log(token)
         res.json({token});
     }catch (error){
         res.status(500).json({message: 'Erro ao fazer login', error: error.message});
