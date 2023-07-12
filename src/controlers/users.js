@@ -41,3 +41,27 @@ export const login = async(req, res) =>{
         res.status(500).json({message: 'Erro ao fazer login', error: error.message});
     }
 };
+
+export const listUsers = async(req, res) => {
+    try{
+        const users = await Users.find();
+        res.json(users);
+    }catch(error){
+        res.status(500).json({message: "Erro ao listar usuários", erro:error.message});
+    }
+};
+
+export const listUser = async (req, res) => {
+    try{
+        const {id} = req.params;
+        const user = await Users.findById(id);
+
+        if (user){
+            res.json(user);
+        }else{
+            res.status(404).json({message: "Usuário não encontrado"});
+        }
+    }catch (error){
+        res.status(500).json({message: "Erro ao buscar usuário", erro: error.message});
+    }
+};
